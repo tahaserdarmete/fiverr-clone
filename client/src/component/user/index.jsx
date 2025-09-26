@@ -3,6 +3,7 @@ import {useContext} from "react";
 import {AuthContext} from "../../context/authContext";
 import {IoLogInOutline} from "react-icons/io5";
 import api from "../../api";
+import {Link} from "react-router-dom";
 
 const User = () => {
   const {user, setUser} = useContext(AuthContext);
@@ -25,6 +26,16 @@ const User = () => {
         src={user?.photo}
         className="w-8 h-8 rounded-full border border-neutral-400"
       />
+
+      {user.isSeller && (
+        <Link
+          to={"/add-gig"}
+          className="bg-green-500 p-1 px-2 rounded-md text-white"
+        >
+          Oluştur
+        </Link>
+      )}
+
       <button
         onClick={handleLogout}
         className="cursor-pointer inline-flex items-center bg-red-500 p-1 rounded-md text-white"

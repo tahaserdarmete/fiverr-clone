@@ -14,7 +14,7 @@ const Detail = () => {
   // API isteği at
   const {isLoading, data, error, refetch} = useGetOneGig(id);
 
-  console.log("Şuan incelenen gig:", data);
+  // console.log("Şuan incelenen gig:", data);
 
   if (isLoading) return <div>Yükleniyor</div>;
 

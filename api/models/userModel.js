@@ -47,7 +47,7 @@ const userSchema = new Schema(
     },
 
     isSeller: {
-      type: String,
+      type: Boolean,
       default: false,
     },
 

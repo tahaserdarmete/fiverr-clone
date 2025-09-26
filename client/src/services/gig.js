@@ -9,7 +9,23 @@ const gigService = {
   getAll: (params) => api.get("/gig", {params}),
   getOne: (id) => api.get(`/gig/${id}`),
   create: (form, token) =>
-    api.post("/gig", form, {headers: {Authorization: `Bearer ${token}`}}),
+    api.post("/gig", form, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+  update: (form, token, id) =>
+    api.patch(`/gig/${id}`, form, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+  delete: (id, token) =>
+    api.delete(`/gig/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
 };
 
 // Bütün hizmetleri al ve hafızada tut
@@ -34,16 +50,58 @@ const useCreateGig = () => {
 
   return useMutation({
     mutationKey: ["createGig"],
-    mutationFn: (form, token) => gigService.create(form, token),
+    mutationFn: ({form, token}) => gigService.create(form, token),
     onSuccess: (res) => {
       toast.success("Hizmet başarıyla oluşturuldu!");
-      console.log("Oluşturulan gigin verisi:", res);
+
+      navigate(`/detail/${res.data.data._id}`);
     },
     onError: (error) => {
-      console.log(error);
+      console.log(error.response.data.message);
       toast.error("Hizmet oluşturulurken bir sorun oluştu.");
     },
   });
 };
 
-export {gigService, useGetAllGigs, useGetOneGig, useCreateGig};
+const useUpdateGig = () => {
+  const navigate = useNavigate();
+  return useMutation({
+    mutationKey: ["updateGig"],
+    mutationFn: ({form, token, id}) => gigService.update(form, token, id),
+    onSuccess: (res) => {
+      console.log("resonse:", res);
+      toast.info("Hizmet başarıyla güncellendi.");
+
+      navigate(`/detail/${res.data.data._id}`);
+    },
+    onError: (error) => {
+      console.log(error.response.data.message);
+      toast.error("Hizmet güncellenirken bir sorun oluştu.");
+    },
+  });
+};
+
+const useDeleteGig = () => {
+  const navigate = useNavigate();
+  return useMutation({
+    mutationKey: ["deleteGig"],
+    mutationFn: ({id, token}) => gigService.delete(id, token),
+    onSuccess: (res) => {
+      toast.info("Hizmet başarıyla silindi.");
+      navigate("/");
+    },
+    onError: (err) => {
+      toast.info("Bir hata oluştu!");
+      console.error(err.response.data.message);
+    },
+  });
+};
+
+export {
+  gigService,
+  useGetAllGigs,
+  useGetOneGig,
+  useCreateGig,
+  useUpdateGig,
+  useDeleteGig,
+};

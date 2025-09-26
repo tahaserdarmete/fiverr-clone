@@ -4,12 +4,13 @@ import Input from "../../component/input";
 import Select from "../../component/select";
 import {useCreateGig} from "../../services/gig";
 import {AuthContext} from "../../context/authContext";
+import Loader from "../../component/loader";
 
 const Create = () => {
   // mutasyon kurulumu (uzak veri tabanında değişiklik yapcak istek)
   const {token} = useContext(AuthContext);
 
-  const {mutate, ispending} = useCreateGig();
+  const {mutate, isPending} = useCreateGig();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,10 +18,11 @@ const Create = () => {
     // inputlardaki bütün verileri al
     const gigData = new FormData(e.currentTarget);
 
-    console.log("form verisi", gigData);
+    // console.log("form verisi", gigData instanceof FormData);
+    console.log("tokenimiz:", token);
 
     // api istek at
-    mutate(gigData, token);
+    mutate({form: gigData, token});
   };
   return (
     <div>
@@ -39,7 +41,7 @@ const Create = () => {
 
         <div className="flex md:justify-center my-5">
           <button className="bg-green-500 px-6 py-2 rounded-md text-white hover:bg-green-600 max-sm:w-full w-1/2 sm:mx-auto flex justify-center disabled:opacity-80 cursor-pointer transition-all">
-            Oluştur
+            {isPending ? <Loader /> : <div>Oluştur</div>}
           </button>
         </div>
       </form>

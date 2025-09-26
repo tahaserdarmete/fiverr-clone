@@ -42,6 +42,7 @@ const register = c(async (req, res, next) => {
 
 // Giriş Yap
 const login = c(async (req, res, next) => {
+  console.log("req.body:", req.body);
   // Kullanıcıyı Db içerisinde bul
   const user = await User.findOne({username: req.body.username});
 

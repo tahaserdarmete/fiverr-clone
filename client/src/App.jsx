@@ -9,6 +9,7 @@ import Detail from "./pages/detail";
 import Forgot from "./pages/forgot";
 import ResetPassword from "./pages/reset";
 import Protected from "./component/protected";
+import Edit from "./pages/edit";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           {/* Sadece Satıcı Hesapları erişebilecek */}
           <Route element={<Protected />}>
             <Route path="/add-gig" element={<Create />} />
+            <Route path="/edit-gig/:id" element={<Edit />} />
           </Route>
         </Routes>
       </div>

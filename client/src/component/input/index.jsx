@@ -8,6 +8,7 @@ const Input = ({
   disabled = false,
   required = true,
   multiple = false,
+  defaultValue,
 }) => {
   return (
     <div className="mb-5">
@@ -20,6 +21,7 @@ const Input = ({
           required={required}
           disabled={disabled}
           placeholder={placeholder}
+          defaultValue={defaultValue}
           className="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-2.5 text-dark disabled:bg-gray-300 mt-2"
         />
       ) : (
@@ -33,6 +35,7 @@ const Input = ({
           disabled={disabled}
           placeholder={placeholder}
           multiple={multiple}
+          defaultValue={defaultValue}
           className="bg-gray-50 border border-gray-300 text-sm rounded-lg w-full p-2.5 text-dark disabled:bg-gray-300 mt-2"
         />
       )}

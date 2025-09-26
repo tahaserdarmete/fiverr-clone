@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 
-const Select = ({label, options, name}) => {
+const Select = ({label, options, name, defaultValue}) => {
+  const [selectedCategory, setSelectedCategory] = useState(defaultValue);
+
   return (
     <div className="mb-5 flex flex-col">
       <label htmlFor={name} className="text-sm font-medium">
@@ -11,6 +13,8 @@ const Select = ({label, options, name}) => {
         name={name}
         id={name}
         className="bg-gray-50 border border-gray-500 rounded-md p-2.5 placeholder-gray-400 text-dark focus:border-blue-500"
+        value={selectedCategory}
+        onChange={(e) => setSelectedCategory(e.target.value)}
       >
         {options.map((category, key) => (
           <option value={category.name} key={key}>

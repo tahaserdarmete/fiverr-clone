@@ -22,7 +22,6 @@ const protect = async (req, res, next) => {
   jwt.verify(token, process.env.JWT_TOKEN, (err, payload) => {
     // 4) Token geçersizse hata ver
 
-    console.log("Gönderilen Token:", token);
     if (err) {
       return next(
         error(403, "Token geçersiz veya süresi dolmuş, tekrar giriş yapınız.")

@@ -11,8 +11,6 @@ const Search = () => {
   // Url'deki query ve category değerlerini almak için useSearchParams kullanıcaz
   const [params] = useSearchParams();
 
-  console.log("parametreler:", params.get("query"));
-
   const search = params.get("query");
 
   const category = params.get("category");
@@ -41,11 +39,7 @@ const Search = () => {
           <Error error={error} refetch={refetch} />
         ) : (
           // Eğer veri gelirse
-          <div
-            className="grid 
-          [@media(min-width:480px)]:grid-cols-2
-          grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-4"
-          >
+          <div className="grid [@media(min-width:480px)]:grid-cols-2 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {data?.map((item, key) => (
               <Card item={item} key={key} />
             ))}
