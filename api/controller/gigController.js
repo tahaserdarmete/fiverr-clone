@@ -25,7 +25,7 @@ const buildFilters = (query) => {
 
   if (query.search) filters.title = {$regex: query.search, $options: "i"}; // insensitive (büyük-küçük harfe duyarsız.)
 
-  // arama nesnesinden sortNy değeri geliyorsa sortBy değerine göre sırala
+  // arama nesnesinden sortBy değeri geliyorsa sortBy değerine göre sırala
   if (query.sortBy) {
     // order değeri "desc" gönderildiyse yüksekten alçağa ise -1 değilse alçaktan çoğa doğru sırala 1
     const order = query.order === "desc" ? -1 : 1;
@@ -33,7 +33,10 @@ const buildFilters = (query) => {
     // * sort objesinin içerisine kullanıcı neye göre sıralamak istiyorsa o değeri koyuyoruz ve o değer "desc" ya da "asc" olma durumuna göre -1 ya da 1 değeri alıyor
     sort[query.sortBy] = order;
   } else {
-    // eğer sortBy gönderilmediyse (kullanıcı sıralamadıysa) oluşturulma tarihine göre sıralama yap diyoruz
+    // eğer sortBy gönderilmediyse (kullanıcı sıralamadıysa) oluşturulma tarihine göre sıralama yap
+
+    // ? Tarih sıralamasında 1 koyduğumuzda ESKİDEN YENİYE
+    // ? -1 koyduğumuzda YENİDEN ESKİYE göre sıralar
     sort.createdAt = -1;
   }
 

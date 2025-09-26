@@ -1,4 +1,5 @@
 import React from "react";
+import NotFound from "../notfound";
 
 const Error = ({error, refetch}) => {
   return (

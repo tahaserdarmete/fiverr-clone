@@ -28,6 +28,7 @@ export const AuthProvider = ({children}) => {
         navigate("/login");
       })
       .catch((err) => {
+        console.log(err);
         alert(err);
       });
   };

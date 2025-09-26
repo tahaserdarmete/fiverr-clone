@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useGetAllGigs} from "../../services/gig";
 import {Link, useSearchParams} from "react-router-dom";
 import Card from "../../component/card";
@@ -15,17 +15,66 @@ const Search = () => {
 
   const category = params.get("category");
 
+  const [sortBy, setSortBy] = useState("packagePrice");
+
+  const [order, setOrder] = useState("desc");
+
   const apiParams = {
     search,
     category,
+    sortBy,
+    order,
   };
 
   const {isLoading, error, data, refetch} = useGetAllGigs(apiParams);
 
   return (
     <div>
-      <div className="mb-4">
+      <div className="mb-4 flex justify-between flex-col sm:flex-row gap-4 items-center">
         <Title search={search} category={category} />
+
+        <div className="flex gap-3">
+          <div className="inline-flex flex-col">
+            <label htmlFor="" className="text-gray-400">
+              Sıralama
+            </label>
+            <select
+              name="sortBy"
+              id="sortBy"
+              defaultValue="default"
+              className="border-2 border-neutral-300 rounded-md p-1"
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              <option value="default" disabled>
+                Sıralama seçiniz.
+              </option>
+              <option value="packagePrice">Fiyat</option>
+              <option value="title">İsim</option>
+              <option value="createdAt">Tarih</option>
+              <option value="reviewCount">İnceleme Sayısı</option>
+              <option value="packageDuration">Süre</option>
+            </select>
+          </div>
+
+          <div className="inline-flex flex-col">
+            <label htmlFor="" className="text-gray-400">
+              Gelişmiş Sıralama
+            </label>
+            <select
+              name="sortBy"
+              id="sortBy"
+              defaultValue="default"
+              className="border-2 border-neutral-300 rounded-md p-1"
+              onChange={(e) => setOrder(e.target.value)}
+            >
+              <option value="default" disabled>
+                seçiniz...
+              </option>
+              <option value="asc">Düşükten Yükseğe (A-Z)</option>
+              <option value="desc">Yüksekten Düşüğe (Z-A)</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       {

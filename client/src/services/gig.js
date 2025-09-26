@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 // Hizmetlerle alakalı API isteklerinin hepsinin burada belirleyeceğiz. İhtiyaç olunan yerde export edeceğiz.
 
 const gigService = {
-  getAll: (params) => api.get("/gig", {params}),
+  getAll: (params) => api.get(`/gig`, {params}),
   getOne: (id) => api.get(`/gig/${id}`),
   create: (form, token) =>
     api.post("/gig", form, {
@@ -33,7 +33,10 @@ const useGetAllGigs = (params) =>
   useQuery({
     queryKey: ["gigs", params],
     queryFn: () => gigService.getAll(params),
-    select: (res) => res.data.data,
+    select: (res) => {
+      console.log(res.data.data);
+      return res.data.data;
+    },
   });
 
 // Tek bir hizmeti al ve hafızada tut

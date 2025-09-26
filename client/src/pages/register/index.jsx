@@ -3,6 +3,7 @@ import Input from "../../component/input";
 import Switch from "../../component/switch";
 import Button from "../../component/customButton";
 import {AuthContext} from "../../context/authContext";
+import Loader from "../../component/loader";
 
 const Register = () => {
   // Satıcı Hesabı için State
